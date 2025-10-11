@@ -1,0 +1,20 @@
+{
+	"folders": [
+		{
+			"path": "."
+		},
+		{
+			"path": "${workspaceRoot}/../../../../libs/openFrameworks"
+		}
+	],
+	"openFrameworksProjectGeneratorVersion": "0.103.0",
+	"settings": {
+		"files.associations": {
+			"array": "cpp",
+			"deque": "cpp",
+			"list": "cpp",
+			"vector": "cpp",
+			"string_view": "cpp"
+		}
+	}
+}

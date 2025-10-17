@@ -16,7 +16,11 @@ void ofApp::setup(){
     boxMaterial.setDiffuseColor(ofFloatColor::red);
     boxMaterial.setShininess(0.02);
 
-
+    texture.load("sunset.jpg");
+    texture.getTexture().setTextureWrap( GL_REPEAT, GL_REPEAT );
+    texture.getTexture().bind();
+    box.mapTexCoordsFromTexture( texture.getTexture() );
+    sph.mapTexCoordsFromTexture( texture.getTexture() );
 
 }
 //--------------------------------------------------------------
@@ -30,9 +34,11 @@ void ofApp::draw(){
     ofFill();
     cam.begin();
     ofSetColor(0,200,0);
-    ofDrawSphere(100,100,0,10.0f);
+    //ofDrawSphere(100,100,0,100.0f);
+    sph.draw();
     boxMaterial.begin();
     ofTranslate(300,300);
+
     box.draw();
     boxMaterial.end();
     cam.end();

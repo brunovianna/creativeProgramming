@@ -25,6 +25,9 @@ class ofApp : public ofBaseApp{
 		
 		ofLight pointLight;
 		ofBoxPrimitive box;
+		ofSpherePrimitive sph;
 		ofMaterial boxMaterial;
 		ofEasyCam cam;
+
+		ofImage texture;
 };

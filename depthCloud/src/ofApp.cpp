@@ -21,7 +21,7 @@ void ofApp::setup(){
     //mesh.setMode(OF_PRIMITIVE_TRIANGLE_FAN);
     
     //Allow you to set up the indices automatically when you add a vertex
-    //mesh.enableIndices();
+    mesh.enableIndices();
 	//mesh.setupIndicesAuto();
 
     // // loop through the image in the x and y axes
@@ -42,6 +42,23 @@ void ofApp::setup(){
         }
     }
     
+
+    // int h = depth.getHeight() / 4;
+    // int w = depth.getWidth() / 4;
+
+	// for (int y = 0; y<h; y++){
+	// 	for (int x=0; x< w; x++){
+	// 		mesh.addIndex(x+y*w);				// 0
+	// 		mesh.addIndex((x+1)+y*w);			// 1
+	// 		mesh.addIndex(x+(y+1)*w);			// 10
+			
+	// 		mesh.addIndex((x+1)+y*w);			// 1
+	// 		mesh.addIndex((x+1)+(y+1)*w);		// 11
+	// 		mesh.addIndex(x+(y+1)*w);			// 10
+	// 	}
+	// }
+
+
     ofEnableDepthTest();
 }
 

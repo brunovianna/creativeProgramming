@@ -3,7 +3,6 @@
 #include "ofMain.h"
 #include "ofxSoundObjects.h"
 
-#include "ofxSoundPlayerObject.h"
 
 class ofApp : public ofBaseApp {
 

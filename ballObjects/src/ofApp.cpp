@@ -15,7 +15,7 @@ void ofApp::update(){
 
 
     for (Ball &b : myBalls) {
-        b.applyForce(gravity);
+        //b.applyForce(gravity);
         b.applyForce(wind);
         b.update();
     }
@@ -121,17 +121,17 @@ Ball::Ball(int _x, int _y) { //same name, different parameters
     velocity = ofVec2f(ofRandom(-3,3),ofRandom(-3,3));
     acceleration = ofVec2f(0,0);
     mass = ofRandom(10,100); 
-    colour = ofColor::white;
+    colour = ofColor(ofRandom(150,255));
 
 };
 
 
 void Ball::display() {
-    ofNoFill();
-    ofSetColor (0);
-    ofDrawCircle(location.x, location.y, mass);
     ofFill();
     ofSetColor (colour);
+    ofDrawCircle(location.x, location.y, mass);
+    ofNoFill();
+    ofSetColor (0);
     ofDrawCircle(location.x, location.y, mass);
     
 };

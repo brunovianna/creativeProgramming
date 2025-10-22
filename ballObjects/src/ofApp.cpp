@@ -2,92 +2,169 @@
 
 //--------------------------------------------------------------
 void ofApp::setup(){
-    ofBackground(240);
-    ofSetFrameRate(60);
-    ofEnableSmoothing();
-
-    pos.set(ofGetWidth()/2, ofGetHeight() - 60); // starting position
-    vel.set(0, 0);
-    acc.set(0, 0);
-    
-    mass = 1.0;
-    gravity = 0.5;     // downward acceleration
-    friction = 0.05;   // friction coefficient
-
+    myBall =  Ball();
+    gravity = ofVec2f (0,0.1f);
+    wind = ofVec2f(0.01,0);
+    ofSetCircleResolution(100);
 }
 
 //--------------------------------------------------------------
 void ofApp::update(){
-    // apply gravity
-    acc.y += gravity;
+    //myBall.update();
 
-    // apply friction only if on the "ground"
-    float groundY = ofGetHeight() - 50;
-    if (pos.y >= groundY) {
-        pos.y = groundY;
-        vel.y = 0;
-        acc.y = 0; // reset vertical accel
+    //int i=0;
 
-        if (fabs(vel.x) > 0.001) {
-            float frictionForce = -friction * vel.x;
-            acc.x += frictionForce;
-        } else {
-            vel.x = 0;
-        }
-    }
 
-    // if mouse held, apply force toward mouse
-    if (ofGetMousePressed(0)) {
-        ofVec2f mouse(ofGetMouseX(), ofGetMouseY());
-        ofVec2f dir = mouse - pos;
-        float distance = dir.length();
-        if (distance > 1.0) {
-            dir.normalize();
-            ofVec2f force = dir * (distance * 0.01); // scale force
-            acc += force / mass;
-        }
-    }
-
-    vel += acc;
-    pos += vel;
-
-    acc.set(0);
-
-    // check boundaries
-    if (pos.x>ofGetWidth()) {
-        pos.x = ofGetWidth();
-    }
-    if (pos.x<0) {
-        pos.x = 0;
+    for (Ball &b : myBalls) {
+        //b.applyForce(gravity);
+        b.applyForce(wind);
+        b.update();
     }
 }
 
 //--------------------------------------------------------------
 void ofApp::draw(){
-    float groundY = ofGetHeight() - 50;
-    
-    // draw ground
-    ofSetColor(100);
-    ofDrawRectangle(0, groundY, ofGetWidth(), 50);
+    //myBall.display();
+    if (ofGetMousePressed(1)) {
+        wind = ofVec2f (1,0);
+    } else {
+        wind = ofVec2f (0,0);
+    }
+    for (Ball b : myBalls) {
+        b.display();
 
-    // draw block
-    ofSetColor(200, 100, 100);
-    float size = 40;
-    ofDrawRectangle(pos.x - size/2, pos.y - size/2, size, size);
-
-    // draw force arrow if mouse held
-    if (ofGetMousePressed(0)) {
-        ofVec2f mouse(ofGetMouseX(), ofGetMouseY());
-        ofSetColor(50, 50, 255);
-        ofSetLineWidth(3);
-        ofDrawLine(pos, mouse);
-
-        ofVec2f dir = (mouse - pos).getNormalized() * 20;
-        ofVec2f perp(-dir.y, dir.x);
-        ofDrawLine(mouse, mouse - dir + perp * 0.3);
-        ofDrawLine(mouse, mouse - dir - perp * 0.3);
     }
 
 }
 
+//--------------------------------------------------------------
+void ofApp::exit(){
 
+}
+
+//--------------------------------------------------------------
+void ofApp::keyPressed(int key){
+
+}
+
+//--------------------------------------------------------------
+void ofApp::keyReleased(int key){
+
+}
+
+//--------------------------------------------------------------
+void ofApp::mouseMoved(int x, int y ){
+
+}
+
+//--------------------------------------------------------------
+void ofApp::mouseDragged(int x, int y, int button){
+
+}
+
+//--------------------------------------------------------------
+void ofApp::mousePressed(int x, int y, int button){
+
+}
+
+//--------------------------------------------------------------
+void ofApp::mouseReleased(int x, int y, int button){
+
+    if (button==0) {
+        Ball b;
+        b = Ball(x,y);
+        myBalls.push_back(b);
+    }    
+
+}
+
+//--------------------------------------------------------------
+void ofApp::mouseScrolled(int x, int y, float scrollX, float scrollY){
+
+}
+
+//--------------------------------------------------------------
+void ofApp::mouseEntered(int x, int y){
+
+}
+
+//--------------------------------------------------------------
+void ofApp::mouseExited(int x, int y){
+
+}
+
+//--------------------------------------------------------------
+void ofApp::windowResized(int w, int h){
+
+}
+
+//--------------------------------------------------------------
+void ofApp::gotMessage(ofMessage msg){
+
+}
+
+//--------------------------------------------------------------
+void ofApp::dragEvent(ofDragInfo dragInfo){ 
+
+}
+
+Ball::Ball() {
+    location = ofVec2f(ofRandom((float)(ofGetWindowWidth()/2)),ofRandom((float)(ofGetWindowHeight()/2)));
+    velocity = ofVec2f(ofRandom(-3,3),ofRandom(-3,3));
+    acceleration = ofVec2f(0,0);
+    mass =ofRandom(10,100); 
+    colour = ofColor::white;
+
+};
+
+Ball::Ball(int _x, int _y) { //same name, different parameters
+    location = ofVec2f(_x,_y);
+    velocity = ofVec2f(ofRandom(-3,3),ofRandom(-3,3));
+    acceleration = ofVec2f(0,0);
+    mass = ofRandom(10,100); 
+    colour = ofColor(ofRandom(150,255));
+
+};
+
+
+void Ball::display() {
+    ofFill();
+    ofSetColor (colour);
+    ofDrawCircle(location.x, location.y, mass);
+    ofNoFill();
+    ofSetLineWidth(5);
+    ofSetColor (0);
+    ofDrawCircle(location.x, location.y, mass);
+    
+};
+
+
+void Ball::applyForce(ofVec2f _force) {
+    acceleration = _force / mass + acceleration;
+}
+
+void Ball::update() {
+
+
+    velocity = velocity + acceleration;
+
+
+    int newX = location.x + velocity.x ;
+    if ((newX> 0)&&(newX< ofGetWidth())) {
+        location.x = newX;
+    } else {
+        velocity.x = -velocity.x;
+        location.x = location.x + velocity.x ;
+         
+    }
+
+    int newY = location.y + velocity.y ;
+    if ((newY > ofGetHeight())) {
+        location.y = ofGetHeight();
+        velocity.y *= -1;
+    } else location.y = newY;
+
+
+
+
+};

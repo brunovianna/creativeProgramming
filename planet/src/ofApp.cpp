@@ -3,6 +3,11 @@
 //--------------------------------------------------------------
 void ofApp::setup(){
     planet = Planet(ofGetWidth()/2, ofGetHeight()/2);
+
+    //start with a well -behaved moon
+    Moon m = Moon(ofVec2f(ofGetWidth()/2,ofGetHeight()/4),ofVec2f(1,0));
+    myMoons.push_back(m);
+
 }
 
 //--------------------------------------------------------------
@@ -103,10 +108,19 @@ Moon::Moon() {
 
 Moon::Moon(int _x, int _y) { //same name, different parameters
     location = ofVec2f(_x,_y);
-    velocity = ofVec2f(ofRandom(-3,3),ofRandom(-3,3));
+    velocity = ofVec2f(ofRandom(-1,1),ofRandom(-1,1));
     acceleration = ofVec2f(0,0);
     mass = ofRandom(10,100); 
     colour = ofColor(ofRandom(150,255));
+
+};
+
+Moon::Moon(ofVec2f _location, ofVec2f _velocity ) { //same name, different parameters
+    location = _location;
+    velocity = _velocity;
+    acceleration = ofVec2f(0,0);
+    mass = 50; 
+    colour = ofColor::yellow;
 
 };
 
@@ -185,7 +199,7 @@ void Planet::attract(Moon& _moon) {
     ofVec2f force = - _moon.location + location; // getting the direction
     float distance = force.length(); //getting the distance
 
-    float gravity = 1;
+    float gravity = 0.006;
 
     float strength = gravity * (_moon.mass * mass) / (distance * distance);
     force = force * strength;

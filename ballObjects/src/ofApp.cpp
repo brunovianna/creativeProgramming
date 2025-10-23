@@ -3,8 +3,8 @@
 //--------------------------------------------------------------
 void ofApp::setup(){
     myBall =  Ball();
-    gravity = ofVec2f (0,0.1f);
-    wind = ofVec2f(0.01,0);
+    gravity = ofVec2f (0,8);
+    wind = ofVec2f(1,0);
     ofSetCircleResolution(100);
 }
 
@@ -16,8 +16,8 @@ void ofApp::update(){
 
 
     for (Ball &b : myBalls) {
-        //b.applyForce(gravity);
-        b.applyForce(wind);
+        ofVec2f force = wind + gravity;
+        b.applyForce(force);
         b.update();
     }
 }
@@ -140,7 +140,7 @@ void Ball::display() {
 
 
 void Ball::applyForce(ofVec2f _force) {
-    acceleration = _force / mass + acceleration;
+    acceleration = _force / mass;
 }
 
 void Ball::update() {
@@ -153,7 +153,7 @@ void Ball::update() {
     if ((newX> 0)&&(newX< ofGetWidth())) {
         location.x = newX;
     } else {
-        velocity.x = -velocity.x;
+        velocity.x *= -0.8;
         location.x = location.x + velocity.x ;
          
     }
@@ -161,10 +161,7 @@ void Ball::update() {
     int newY = location.y + velocity.y ;
     if ((newY > ofGetHeight())) {
         location.y = ofGetHeight();
-        velocity.y *= -1;
+        velocity.y *= -0.8;
     } else location.y = newY;
-
-
-
 
 };

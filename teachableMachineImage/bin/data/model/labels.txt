@@ -1,0 +1,3 @@
+0 open-hand
+1 closed-fist
+2 empty

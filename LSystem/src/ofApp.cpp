@@ -3,13 +3,14 @@
 //--------------------------------------------------------------
 void ofApp::setup() {
   //map<string, string> rules = {{"F", "FF+[+F-F-F]-[-F+F+F]"}};
-  map<string, string> rules = {{"X", "XFYFX+F+YFXFY-F-XFYFX"},{"Y", "YFXFY-F-XFYFX+F+YFXFY"}};
+  //map<string, string> rules = {{"X", "XFYFX+F+YFXFY-F-XFYFX"},{"Y", "YFXFY-F-XFYFX+F+YFXFY"}}; // peano
   //map<string, string> rules = {{"F", "F-G+F+G-F"}, {"G", "G+F-G-F+G"}}; // Sierpinski Gasket variation
+  map<string, string> rules = {{"A", "+BF-AFA-FB+"},{"B","-AF+BFB+FA-"}};
 
-  lsystem.setup("X", rules);
-  turtle.setup(10, ofDegToRad(90.0));
+  lsystem.setup("A", rules);
+  turtle.setup(12, ofDegToRad(90.0));
 
-  for (int i = 0; i < 4; ++i) {
+  for (int i = 0; i < 6; ++i) {
     lsystem.generate();
   }
 
@@ -21,7 +22,7 @@ void ofApp::update() { ofBackground(255); }
 //--------------------------------------------------------------
 void ofApp::draw() {
    ofSetColor(0);
-  ofTranslate(ofGetWidth()*0.0, ofGetHeight()*1);
+  ofTranslate(ofGetWidth()*0+24, ofGetHeight()*1-24);
   turtle.render(lsystem.sentence);
 }
 

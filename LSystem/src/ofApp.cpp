@@ -14,6 +14,9 @@ void ofApp::setup() {
     lsystem.generate();
   }
 
+  // Build the path once in setup (more efficient)
+  turtle.render(lsystem.sentence);
+
 }
 
 //--------------------------------------------------------------
@@ -21,9 +24,13 @@ void ofApp::update() { ofBackground(255); }
 
 //--------------------------------------------------------------
 void ofApp::draw() {
-   ofSetColor(0);
-  ofTranslate(ofGetWidth()*0+24, ofGetHeight()*1-24);
-  turtle.render(lsystem.sentence);
+  ofPushMatrix();
+  ofTranslate(ofGetWidth()/2, ofGetHeight()/2);
+  
+  // Draw the path
+  turtle.getPath().draw();
+  
+  ofPopMatrix();
 }
 
 //--------------------------------------------------------------

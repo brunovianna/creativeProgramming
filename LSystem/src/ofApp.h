@@ -8,8 +8,8 @@ class Reveal {
   public:
     ofPolyline thisLine, refLine;
     float speed;
-    float percent;
-    float idx;
+    float percent, startPercent;
+	bool drawFlag;
     float width;
     ofColor c;
     Reveal (float _percent, ofPolyline& _refLine, ofColor _c, float _width, float _speed) {
@@ -20,24 +20,20 @@ class Reveal {
       thisLine.clear();
       
       percent = _percent;
-      idx = refLine.getIndexAtPercent(percent );
-
+	  startPercent = _percent;
+	  drawFlag = true;
+ 
     }
 
     void update () {
-      float cIdx = refLine.getIndexAtPercent(percent );
-      float nIdx = refLine.getIndexAtPercent(percent + speed);
-      percent += speed;
+ 
+    percent += speed;
       // Clamp percent between 0 and 1
-      if (percent > 1.0) percent = 1.0;
-      if (percent < 0.0) percent = 0.0;
+    if (percent > 1.0) percent = 1.0;
+    if (percent < 0.0) percent = 0.0;
 
 
-      if ((int)nIdx!=(int)cIdx) {
-        for (int i=(int)cIdx;(int)nIdx!=i;((int)nIdx>(int)cIdx ? i++ : i-- )) {
-          thisLine.addVertex(refLine.getVertices()[i]);
-        }
-      }
+    thisLine.addVertex(refLine.getPointAtPercent(percent));
     }
 
     void draw() {

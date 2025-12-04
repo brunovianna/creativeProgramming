@@ -32,7 +32,7 @@ void ofApp::update() {
 
  // Add new reveals randomly
     if (reveals.size() < maxReveals) {
-        if (ofRandom(1.0) > 0.97) { // Slightly higher probability
+        if (ofRandom(1.0) > 0.97) { 
             // Choose a random starting point
             float startPercent = ofRandom(1.0);
             
@@ -41,13 +41,34 @@ void ofApp::update() {
             randomColor.setHsb(ofRandom(255), 200, 200);
             
             // Add a new reveal
-            reveals.push_back(Reveal(startPercent, bigLine, randomColor, 2, ofRandom (-0.0001,0.0001)));
+            reveals.push_back(Reveal(startPercent, bigLine, randomColor, 2, ofRandom (-0.001,0.001)));
         }
     }
 
+
+
+
     // Update all reveals
+	for (int i = 0; i < reveals.size();i++) {
+		for (int j = 0; j < reveals.size(); j++) {
+			if ((reveals[i].drawFlag) && (i != j)) {
+				if (reveals[j].startPercent < reveals[j].percent) {
+					if (ofInRange(reveals[i].percent, reveals[j].startPercent, reveals[j].percent)) {
+						reveals[i].drawFlag = false;
+					}
+				} else {
+					if (ofInRange(reveals[i].percent, reveals[j].percent, reveals[j].startPercent)) {
+						reveals[i].drawFlag = false;
+					}
+				}
+			}
+		}
+	}
+
+
+
     for (auto& r : reveals) {
-        r.update();
+		if (r.drawFlag) r.update();
     }
 
 
@@ -64,7 +85,7 @@ void ofApp::draw() {
 
   
   for (auto& r:reveals) {
-    r.draw();
+	 r.draw();
   }
 
 

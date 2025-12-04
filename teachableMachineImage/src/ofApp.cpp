@@ -31,7 +31,7 @@ void ofApp::setup() {
 		// We will search the model for the correct names.
 
 		//std::vector<std::string> ops = model.get_operations();
-		inputOpName = "serving_default_sequential_1_input";
+		inputOpName = "serving_default_input_1";
 		outputOpName = "StatefulPartitionedCall";
 		vector<string> inputNames = { inputOpName };
 		vector<string> outputNames = { outputOpName };
@@ -111,9 +111,12 @@ void ofApp::update() {
 
         // CRITICAL FIX: Add the batch dimension.
 		// The model expects [1, 224, 224, 3], but we have [224, 224, 3].
+<<<<<<< HEAD
+=======
 
 		inputTensor = cppflow::cast(inputTensor, TF_UINT8, TF_FLOAT);
         
+>>>>>>> b95f7859c87c9ba0ee6eba7cab26e6a57be2e050
 		inputTensor = cppflow::expand_dims(inputTensor, 0);
 
         try {
@@ -121,7 +124,11 @@ void ofApp::update() {
 			auto output = model.runModel(inputTensor);
 
 			// interpret the output
+<<<<<<< HEAD
+			auto maxLabel = cppflow::arg_max(output, 1);
+=======
 		    ofxTF2::tensorToVector(output, results);
+>>>>>>> b95f7859c87c9ba0ee6eba7cab26e6a57be2e050
 
 			// --- POST-PROCESSING ---
 			// Convert output tensor back to a vector of floats

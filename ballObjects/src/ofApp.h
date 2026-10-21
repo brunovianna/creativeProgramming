@@ -9,14 +9,12 @@ class Ball {
 		Ball(int x, int y);
 		void display();
 		void update();
-		void applyForce (ofVec2f _force);
 
 	private:
 		ofVec2f location;
 		ofVec2f velocity;
-		ofVec2f acceleration;
 		ofColor colour;
-		float mass;
+		int size;
 
 
 };
@@ -45,9 +43,5 @@ class ofApp : public ofBaseApp{
 		Ball myBall;
 
 		vector <Ball> myBalls;
-
-		ofVec2f gravity;
-		ofVec2f wind;
-
 };
 

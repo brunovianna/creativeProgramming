@@ -112,7 +112,7 @@ Ball::Ball(int _x, int _y) { //same name, different parameters
 void Ball::display() {
     ofSetColor (colour);
     ofDrawCircle(location.x, location.y, size);
-    cout << "speed: " << velocity.x << " " << velocity.y << "\n";
+    //cout << "speed: " << velocity.x << " " << velocity.y << "\n";
 };
 
 void Ball::update() {
@@ -120,7 +120,7 @@ void Ball::update() {
     int newX = location.x + velocity.x ;
     if ((newX> 0)&&(newX< ofGetWidth())) {
         location.x = newX;
-        cout << "updatex: " << location.x << "\n";
+        //cout << "updatex: " << location.x << "\n";
     } else {
         velocity.x = -velocity.x;
         location.x = location.x + velocity.x ;

@@ -94,7 +94,7 @@ void ofApp::dragEvent(ofDragInfo dragInfo){
 
 Moon::Moon() {
     location = ofVec2f(ofRandom((float)(ofGetWindowWidth()/2)),ofRandom((float)(ofGetWindowHeight()/2)));
-    velocity = ofVec2f(ofRandom(-3,3),ofRandom(-3,3));
+    velocity = ofVec2f(ofRandom(-1,1),ofRandom(-1,1));
     acceleration = ofVec2f(0,0);
     mass =ofRandom(10,100); 
     colour = ofColor::white;
@@ -105,7 +105,7 @@ Moon::Moon(int _x, int _y) { //same name, different parameters
     location = ofVec2f(_x,_y);
     velocity = ofVec2f(ofRandom(-3,3),ofRandom(-3,3));
     acceleration = ofVec2f(0,0);
-    mass = ofRandom(10,100); 
+    mass = ofRandom(100,1000); 
     colour = ofColor(ofRandom(150,255));
 
 };
@@ -114,11 +114,11 @@ Moon::Moon(int _x, int _y) { //same name, different parameters
 void Moon::display() {
     ofFill();
     ofSetColor (colour);
-    ofDrawCircle(location.x, location.y, mass);
+    ofDrawCircle(location.x, location.y, mass*0.1);
     ofNoFill();
     ofSetLineWidth(5);
     ofSetColor (0);
-    ofDrawCircle(location.x, location.y, mass);
+    ofDrawCircle(location.x, location.y, mass*0.1);
     
 };
 

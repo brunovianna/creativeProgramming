@@ -33,7 +33,7 @@ void ofApp::draw(){
     ofFill();
     cam.begin();
     ofSetColor(0,200,0);
-    //ofDrawSphere(100,100,0,100.0f);
+    ofDrawSphere(100,100,0,100.0f);
     texture.getTexture().bind();
     sph.draw();
     texture.getTexture().unbind();

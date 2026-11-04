@@ -32,8 +32,8 @@ class Reveal {
     if (percent > 1.0) percent = 1.0;
     if (percent < 0.0) percent = 0.0;
 
-
-    thisLine.addVertex(refLine.getPointAtPercent(percent));
+	// this makes the line follow the reference line based on the current percent, skipping a few points
+    thisLine.addVertex(refLine.getPointAtPercent(percent)); 
     }
 
     void draw() {

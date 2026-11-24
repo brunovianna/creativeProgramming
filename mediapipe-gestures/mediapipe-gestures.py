@@ -14,6 +14,7 @@ client = SimpleUDPClient(IP, PORT)
 print(f"OSC Client initialized. Sending data to {IP}:{PORT}")
 
 # MediaPipe Gesture Recognizer setup
+#download the model from https://developers.google.com/edge/mediapipe/solutions/vision/gesture_recognizer#hand_landmark_model_bundle
 MODEL_PATH = 'gesture_recognizer.task' # Ensure this file is in the same directory
 
 # Configuration options for the Gesture Recognizer
